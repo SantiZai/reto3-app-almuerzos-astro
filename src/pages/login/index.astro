@@ -1,0 +1,39 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Button from "../../components/Button.astro";
+---
+
+<Layout>
+  <main>
+    <section>
+      <h1>Inicio de sesión</h1>
+      <input type="text" />
+      <input type="text" />
+      <Button>Ingresar</Button>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  input {
+    padding: 4px 6px;
+    background-color: #ccc;
+    color: black;
+  }
+</style>
+
+<script>
+  const $button = document.querySelector("Button");
+
+  $button?.addEventListener("click", () => {
+    login();
+  });
+
+  function login() {}
+</script>
