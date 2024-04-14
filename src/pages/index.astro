@@ -1,21 +1,22 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
 ---
 
-<Layout title="Break app">
-	<main>
-		<h1 class="text-4xl">Bienvenido</h1>
-	</main>
+<Layout>
+  <main>
+    <h1 class="text-4xl">Bienvenido</h1>
+    <Button><a href="order">Iniciar sesión</a></Button>
+  </main>
 </Layout>
 
 <style>
-	main {
-		margin: auto;
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
-	}
+  main {
+    margin: auto;
+    padding: 1rem;
+    width: 800px;
+    max-width: calc(100% - 2rem);
+    font-size: 20px;
+    line-height: 1.6;
+  }
 </style>
