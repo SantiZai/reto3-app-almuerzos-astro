@@ -7,8 +7,14 @@ import Button from "../../components/Button.astro";
   <main>
     <section>
       <h1>Inicio de sesión</h1>
-      <input type="text" />
-      <input type="text" />
+      <input
+        type="text"
+        id="fullname"
+      />
+      <input
+        type="text"
+        id="identifier"
+      />
       <Button>Ingresar</Button>
     </section>
   </main>
@@ -29,11 +35,28 @@ import Button from "../../components/Button.astro";
 </style>
 
 <script>
+  const $fullname: HTMLInputElement = document.getElementById(
+    "fullname"
+  ) as HTMLInputElement;
+  const $identifier: HTMLInputElement = document.getElementById(
+    "identifier"
+  ) as HTMLInputElement;
   const $button = document.querySelector("Button");
 
   $button?.addEventListener("click", () => {
-    login();
+    login({ fullname: $fullname?.value, identifier: $identifier?.value });
   });
 
-  function login() {}
+  async function login(credentials: { fullname: string; identifier: string }) {
+    const API_BASE = "https://o4lzmc38rd.execute-api.sa-east-1.amazonaws.com";
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    };
+    const result = await fetch(`${API_BASE}/auth/login`, config);
+    return result.json();
+  }
 </script>
