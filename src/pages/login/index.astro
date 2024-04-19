@@ -57,6 +57,7 @@ import Button from "../../components/Button.astro";
       body: JSON.stringify(credentials),
     };
     const result = await fetch(`${API_BASE}/auth/login`, config);
-    return result.json();
+    const data = await result.json();
+    console.log(data);
   }
 </script>
