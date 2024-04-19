@@ -31,10 +31,14 @@ import Button from "../../components/Button.astro";
     padding: 4px 6px;
     background-color: #ccc;
     color: black;
+    margin-bottom: 5px;
+    border-radius: 5px;
   }
 </style>
 
 <script>
+  import { user } from "../../utils/store";
+
   const $fullname: HTMLInputElement = document.getElementById(
     "fullname"
   ) as HTMLInputElement;
@@ -58,6 +62,11 @@ import Button from "../../components/Button.astro";
     };
     const result = await fetch(`${API_BASE}/auth/login`, config);
     const data = await result.json();
-    console.log(data);
+    user.set({
+      id: data.id,
+      fullname: data.fullname,
+      identifier: data.identifier,
+      position: data.position,
+    });
   }
 </script>
