@@ -1,20 +1,27 @@
 import { API_BASE } from "./constants";
 
 const generateConfig = (method: string, body?: any) => {
-  return method === "POST"
-    ? {
+  switch (method) {
+    case "POST":
+      const credentials = {
+        fullname: body.fullname.toLowerCase().trim(),
+        identifier: body.identifier.toString().trim(),
+      };
+      return {
         method: method,
-        body,
+        body: JSON.stringify(credentials),
         headers: {
           "Content-Type": "Application/json",
         },
-      }
-    : {
+      };
+    case "GET":
+      return {
         method: method,
         headers: {
           "Content-Type": "Application/json",
         },
       };
+  }
 };
 
 export const getMenus = async (position: string) => {
@@ -35,5 +42,5 @@ export const login = async (credentials: {
     generateConfig("POST", credentials)
   );
   const data = await result.json();
-  return data;
+  return { data, status: result.status };
 };
