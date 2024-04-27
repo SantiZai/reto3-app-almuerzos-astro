@@ -20,7 +20,7 @@ const LoginPage = () => {
 
   return (
     <main>
-      <h1 className="text-3xl mb-8">Ingresar a mi cuenta</h1>
+      <h1 className="text-4xl mb-8">Ingresar a mi cuenta</h1>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col"
