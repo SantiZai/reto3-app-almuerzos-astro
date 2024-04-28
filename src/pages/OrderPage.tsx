@@ -22,43 +22,59 @@ const OrderPage = () => {
       <section>
         {menus && menus.length > 0 ? (
           <>
-            <h3 className="text-2xl mt-4">Entrada</h3>
-            <ul>
-              {menus
-                .filter((men) => men.type === "entrada")
-                .map((menu: Menu) => (
-                  <Card
-                    menu={menu}
-                    key={menu.id}
-                  />
-                ))}
-            </ul>
-            <h3 className="text-2xl mt-4">Plato principal</h3>
-            <ul>
-              {menus
-                .filter((men) => men.type === "principal")
-                .map((menu: Menu) => (
-                  <Card
-                    menu={menu}
-                    key={menu.id}
-                  />
-                ))}
-            </ul>
-            <h3 className="text-2xl mt-4">Postre</h3>
-            <ul>
-              {menus
-                .filter((men) => men.type === "postre")
-                .map((menu: Menu) => (
-                  <Card
-                    menu={menu}
-                    key={menu.id}
-                  />
-                ))}
-            </ul>
+            {entrada.length <= 0 && (
+              <>
+                <h3 className="text-2xl mt-4">Entrada</h3>
+                <ul>
+                  {menus
+                    .filter((men) => men.type === "entrada")
+                    .map((menu: Menu) => (
+                      <Card
+                        key={menu.id}
+                        menu={menu}
+                        handleClick={() => setEntrada(menu.id)}
+                      />
+                    ))}
+                </ul>
+              </>
+            )}
+            {principal.length <= 0 && (
+              <>
+                <h3 className="text-2xl mt-4">Plato principal</h3>
+                <ul>
+                  {menus
+                    .filter((men) => men.type === "principal")
+                    .map((menu: Menu) => (
+                      <Card
+                        key={menu.id}
+                        menu={menu}
+                        handleClick={() => setPrincipal(menu.id)}
+                      />
+                    ))}
+                </ul>
+              </>
+            )}
+            {postre.length <= 0 && (
+              <>
+                <h3 className="text-2xl mt-4">Postre</h3>
+                <ul>
+                  {menus
+                    .filter((men) => men.type === "postre")
+                    .map((menu: Menu) => (
+                      <Card
+                        key={menu.id}
+                        menu={menu}
+                        handleClick={() => setPostre(menu.id)}
+                      />
+                    ))}
+                </ul>
+              </>
+            )}
           </>
         ) : (
           <h4>No hay menús disponibles</h4>
         )}
+        <button className="w-full mt-8">Confirmar orden</button>
       </section>
     </main>
   );
