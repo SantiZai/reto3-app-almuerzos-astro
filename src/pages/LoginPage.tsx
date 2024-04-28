@@ -1,10 +1,17 @@
 import { useState } from "react";
+import { login } from "../utils/data";
+import { userStore } from "../utils/state";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState<{
     fullname: string;
     identifier: string;
   }>({ fullname: "", identifier: "" });
+
+  const updateUser = userStore((state) => state.setUser);
+
+  const navigate = useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -15,7 +22,11 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData)
+    login(formData).then((res) => {
+      if (res.status !== 200) return;
+      updateUser(res.data);
+      navigate("/order")
+    });
   };
 
   return (
