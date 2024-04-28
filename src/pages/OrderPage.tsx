@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getMenus } from "../utils/data";
 import { Menu } from "../utils/models";
 import { userStore } from "../utils/state";
+import Card from "../components/Card";
 
 const OrderPage = () => {
   const [menus, setMenus] = useState<Menu[]>();
@@ -21,28 +22,37 @@ const OrderPage = () => {
       <section>
         {menus && menus.length > 0 ? (
           <>
-            <h3 className="text-2xl">Entrada</h3>
+            <h3 className="text-2xl mt-4">Entrada</h3>
             <ul>
               {menus
                 .filter((men) => men.type === "entrada")
                 .map((menu: Menu) => (
-                  <li key={menu.id}>{menu.name}</li>
+                  <Card
+                    menu={menu}
+                    key={menu.id}
+                  />
                 ))}
             </ul>
-            <h3 className="text-2xl">Plato principal</h3>
+            <h3 className="text-2xl mt-4">Plato principal</h3>
             <ul>
               {menus
                 .filter((men) => men.type === "principal")
                 .map((menu: Menu) => (
-                  <li key={menu.id}>{menu.name}</li>
+                  <Card
+                    menu={menu}
+                    key={menu.id}
+                  />
                 ))}
             </ul>
-            <h3 className="text-2xl">Postre</h3>
+            <h3 className="text-2xl mt-4">Postre</h3>
             <ul>
               {menus
                 .filter((men) => men.type === "postre")
                 .map((menu: Menu) => (
-                  <li key={menu.id}>{menu.name}</li>
+                  <Card
+                    menu={menu}
+                    key={menu.id}
+                  />
                 ))}
             </ul>
           </>
