@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { User } from "./models";
 
 type State = {
   user: User;
@@ -7,13 +8,6 @@ type State = {
 type Action = {
   setUser: (user: State["user"]) => void;
 };
-
-interface User {
-  id: string;
-  fullname: string;
-  identifier: string;
-  position: string;
-}
 
 export const userStore = create<State & Action>((set) => ({
   user: {
