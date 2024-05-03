@@ -113,14 +113,17 @@ const OrderPage = () => {
         <button
           className="w-full mt-8"
           onClick={() =>
-            createOrder({
-              employeeid: user.id,
-              menus: {
-                entradaId: entrada,
-                principalId: principal,
-                postreId: postre,
+            createOrder(
+              {
+                employeeid: user.id,
+                menus: {
+                  entradaId: entrada,
+                  principalId: principal,
+                  postreId: postre,
+                },
               },
-            })
+              user.email
+            )
           }
         >
           Confirmar orden
