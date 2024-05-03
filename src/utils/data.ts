@@ -1,22 +1,19 @@
 import { API_BASE } from "./constants";
+import { Order } from "./models";
 
 const generateConfig = (method: string, body?: any) => {
   switch (method) {
     case "POST":
-      const credentials = {
-        fullname: body.fullname.toLowerCase().trim(),
-        identifier: body.identifier.toString().trim(),
-      };
       return {
-        method: method,
-        body: JSON.stringify(credentials),
+        method,
+        body: JSON.stringify(body),
         headers: {
           "Content-Type": "Application/json",
         },
       };
     case "GET":
       return {
-        method: method,
+        method,
         headers: {
           "Content-Type": "Application/json",
         },
@@ -39,8 +36,30 @@ export const login = async (credentials: {
 }) => {
   const result = await fetch(
     `${API_BASE}/auth/login`,
-    generateConfig("POST", credentials)
+    generateConfig("POST", {
+      fullname: credentials.fullname.toLowerCase().trim(),
+      identifier: credentials.identifier.toLowerCase().trim(),
+    })
   );
   const data = await result.json();
+  return { data, status: result.status };
+};
+
+export const createOrder = async (order: Order) => {
+  if (order.employeeid.length <= 0) {
+    return { message: "Inicie sesión para crear una orden" };
+  }
+  const result = await fetch(
+    `${API_BASE}/orders`,
+    generateConfig("POST", {
+      order,
+      to: "santyagozaidan@gmail.com",
+      from: "santiagozaidandev@gmail.com",
+      subject: "Test email",
+      text: "This is a test email",
+    })
+  );
+  const data = await result.json();
+  console.log(data);
   return { data, status: result.status };
 };
