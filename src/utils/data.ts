@@ -45,7 +45,7 @@ export const login = async (credentials: {
   return { data, status: result.status };
 };
 
-export const createOrder = async (order: Order) => {
+export const createOrder = async (order: Order, email: string) => {
   if (order.employeeid.length <= 0) {
     return { message: "Inicie sesión para crear una orden" };
   }
@@ -53,10 +53,10 @@ export const createOrder = async (order: Order) => {
     `${API_BASE}/orders`,
     generateConfig("POST", {
       order,
-      to: "santyagozaidan@gmail.com",
+      to: email,
       from: "santiagozaidandev@gmail.com",
-      subject: "Test email",
-      text: "This is a test email",
+      subject: "¡Orden creada exitosamente!",
+      text: "Su pedido se ha creado con éxito y ya se encuentra en proceso!!",
     })
   );
   const data = await result.json();
