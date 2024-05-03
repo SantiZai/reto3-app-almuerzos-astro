@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMenus } from "../utils/data";
+import { createOrder, getMenus } from "../utils/data";
 import { Menu } from "../utils/models";
 import { userStore } from "../utils/state";
 import Card from "../components/Card";
@@ -22,7 +22,7 @@ const OrderPage = () => {
       <section>
         {menus && menus.length > 0 ? (
           <>
-            {entrada.length <= 0 && (
+            {entrada.length <= 0 ? (
               <>
                 <h3 className="text-2xl mt-4">Entrada</h3>
                 <ul>
@@ -37,8 +37,20 @@ const OrderPage = () => {
                     ))}
                 </ul>
               </>
+            ) : (
+              <>
+                <h3 className="text-2xl mt-4">Entrada</h3>
+                {menus
+                  .filter((men) => men.id == entrada)
+                  .map((menu: Menu) => (
+                    <Card
+                      key={menu.id}
+                      menu={menu}
+                    />
+                  ))}
+              </>
             )}
-            {principal.length <= 0 && (
+            {principal.length <= 0 ? (
               <>
                 <h3 className="text-2xl mt-4">Plato principal</h3>
                 <ul>
@@ -53,8 +65,20 @@ const OrderPage = () => {
                     ))}
                 </ul>
               </>
+            ) : (
+              <>
+                <h3 className="text-2xl mt-4">Plato principal</h3>
+                {menus
+                  .filter((men) => men.id == principal)
+                  .map((menu: Menu) => (
+                    <Card
+                      key={menu.id}
+                      menu={menu}
+                    />
+                  ))}
+              </>
             )}
-            {postre.length <= 0 && (
+            {postre.length <= 0 ? (
               <>
                 <h3 className="text-2xl mt-4">Postre</h3>
                 <ul>
@@ -69,12 +93,38 @@ const OrderPage = () => {
                     ))}
                 </ul>
               </>
+            ) : (
+              <>
+                <h3 className="text-2xl mt-4">Postre</h3>
+                {menus
+                  .filter((men) => men.id == postre)
+                  .map((menu: Menu) => (
+                    <Card
+                      key={menu.id}
+                      menu={menu}
+                    />
+                  ))}
+              </>
             )}
           </>
         ) : (
           <h4>No hay menús disponibles</h4>
         )}
-        <button className="w-full mt-8">Confirmar orden</button>
+        <button
+          className="w-full mt-8"
+          onClick={() =>
+            createOrder({
+              employeeid: user.id,
+              menus: {
+                entradaId: entrada,
+                principalId: principal,
+                postreId: postre,
+              },
+            })
+          }
+        >
+          Confirmar orden
+        </button>
       </section>
     </main>
   );
