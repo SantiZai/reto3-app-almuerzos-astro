@@ -3,6 +3,7 @@ import { createOrder, getMenus } from "../utils/data";
 import { Menu } from "../utils/models";
 import { userStore } from "../utils/state";
 import Card from "../components/Card";
+import { useNavigate } from "react-router-dom";
 
 const OrderPage = () => {
   const [menus, setMenus] = useState<Menu[]>();
@@ -11,6 +12,8 @@ const OrderPage = () => {
   const [postre, setPostre] = useState("");
 
   const user = userStore((state) => state.user);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getMenus("senior").then((res) => setMenus(res));
@@ -112,7 +115,7 @@ const OrderPage = () => {
         )}
         <button
           className="w-full mt-8"
-          onClick={() =>
+          onClick={() => {
             createOrder(
               {
                 employeeid: user.id,
@@ -123,8 +126,9 @@ const OrderPage = () => {
                 },
               },
               user.email
-            )
-          }
+            );
+            navigate("/order/confirm");
+          }}
         >
           Confirmar orden
         </button>
